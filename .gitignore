@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,intellij,java
 
 # Server
-Server/
+Server/*
 apache*/
 
 ### Eclipse ###
