@@ -34,7 +34,7 @@ public class UserDaoImplementation implements UserDao{
 			//Execute query
 			preparedStatement.executeUpdate();
 		}
-		catch (SQLException e) {
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -84,7 +84,7 @@ public class UserDaoImplementation implements UserDao{
 				users.add(user);
 			}
 		}
-		catch(SQLException e){
+		catch(Exception e){
 			e.printStackTrace();
 		}
 		return users;
@@ -101,7 +101,7 @@ public class UserDaoImplementation implements UserDao{
 			preparedStatement.setString(1, user.getUuid());
 			preparedStatement.executeUpdate();
 		}
-		catch (SQLException e) {
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -123,7 +123,7 @@ public class UserDaoImplementation implements UserDao{
 				return true;
 			}
 		}
-		catch (SQLException e) {
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;	

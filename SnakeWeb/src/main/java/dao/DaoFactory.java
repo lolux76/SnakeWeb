@@ -2,8 +2,9 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.ResultSet;
 
+import dao.dbconfig.DBManager;
 import dao.dbconfig.TestDataDao;
 import dao.dbconfig.TestDataDaoImplementation;
 
@@ -26,14 +27,22 @@ public class DaoFactory {
 			System.err.println(e.getMessage());
 		}
 		
-		DaoFactory instance = new DaoFactory("jdbc:mysql://localhost:3306", "root", "password");
+		DaoFactory instance = new DaoFactory("jdbc:mysql://localhost:3306", "javaEE", "password");
 		return instance;
 	}
 	
-	public Connection getConnection() throws SQLException{
-		return DriverManager.getConnection(url, username, password);
+	public Connection getConnection() throws Exception{
+		Connection db = DriverManager.getConnection(url, username, password);
+		if(db != null) {
+			if(!DBManager.doesDBExist(db)) { //Database does not exist
+				DBManager.createDB(url, username, password, db);
+			}
+			return db;
+		}
+		throw new Exception("Cannot open connection do Mysql Server");
+		
 	}
-	
+
 	public TestDataDao DataTest() {
 		return new TestDataDaoImplementation(this);
 	}

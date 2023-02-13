@@ -41,7 +41,7 @@ private DaoFactory daoFactory;
 				daoFactory.getUserDao().add(user);
 			}
 		}
-		catch (SQLException e) {
+		catch (Exception e) {
 			e.printStackTrace();
 
 		}
