@@ -40,20 +40,33 @@ public class Index extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String nom,mdp;
+		String nom,mdp,command;
 		nom=request.getParameter("nom");
 		mdp=request.getParameter("mdp");
+		command=request.getParameter("command");
 		DaoFactory daoFactory = DaoFactory.getInstance();
 		daoFactory.DataTest().generateData();
 		User user;
-		try {
-			user = daoFactory.getUserDao().getUser(nom, mdp);
-			if(daoFactory.getUserDao().isPasswordCorrect(user)) {
-				response.getWriter().append("MDP correct" ).append("\n");
+		switch(command) {
+		case "Register":
+			try {
+				user=new User(UUID.randomUUID().toString(),nom,mdp, 150);
+				daoFactory.getUserDao().add(user);
+			} catch (Exception e) {
+				response.getWriter().append(e.getMessage()).append("\n");
 			}
-			daoFactory.getUserDao().delete(user);
-		} catch (Exception e) {
-			response.getWriter().append(e.getMessage()).append("\n");
+			break;
+		case "Login":
+			try {
+				user = daoFactory.getUserDao().getUser(nom, mdp);
+				if(daoFactory.getUserDao().isPasswordCorrect(user)) {
+					response.getWriter().append("MDP correct" ).append("\n");
+				}
+				daoFactory.getUserDao().delete(user);
+			} catch (Exception e) {
+				response.getWriter().append(e.getMessage()).append("\n");
+			}
+			break;
 		}
 	}
 

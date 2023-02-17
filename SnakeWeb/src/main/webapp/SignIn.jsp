@@ -20,7 +20,7 @@
 		<input name="mdp" type="password" placeholder="PASSWORD"/>
 		</div>
 		</div>
-		<input value="Login" type="submit"/>
+		<input name="command" value="Login" type="submit"/>
 	</form>
 </div>
 <div class="boite">
@@ -28,13 +28,13 @@
 		<h1>Register</h1>
 		<div class="formulaire">
 		<div class="input">
-		<input type="text" placeholder="NOM"/>
+		<input name="nom" type="text" placeholder="NOM"/>
 		</div>
 		<div class="input">
-		<input type="password" placeholder="PASSWORD"/>
+		<input name="mdp" type="password" placeholder="PASSWORD"/>
 		</div>
 		</div>
-		<input value="Register" type="submit"/>
+		<input name="command" value="Register" type="submit"/>
 	</form>
 </div>
 </body>
