@@ -1,29 +1,24 @@
 
 
 import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.User;
-import dao.DaoFactory;
-
 /**
- * Servlet implementation class Index
+ * Servlet implementation class Accueil
  */
-@WebServlet("/Index")
-public class Index extends HttpServlet {
+@WebServlet("/Accueil")
+public class Accueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public Index() {
+    public Accueil() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -32,7 +27,7 @@ public class Index extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/SignIn.jsp").forward(request,response);
+		 request.getRequestDispatcher("/SignIn.jsp").forward(request,response);
 	}
 
 	/**
@@ -40,21 +35,7 @@ public class Index extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String nom,mdp;
-		nom=request.getParameter("nom");
-		mdp=request.getParameter("mdp");
-		DaoFactory daoFactory = DaoFactory.getInstance();
-		daoFactory.DataTest().generateData();
-		User user;
-		try {
-			user = daoFactory.getUserDao().getUser(nom, mdp);
-			if(daoFactory.getUserDao().isPasswordCorrect(user)) {
-				response.getWriter().append("MDP correct" ).append("\n");
-			}
-			daoFactory.getUserDao().delete(user);
-		} catch (Exception e) {
-			response.getWriter().append(e.getMessage()).append("\n");
-		}
+		doGet(request, response);
 	}
 
 }

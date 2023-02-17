@@ -1,0 +1,48 @@
+@charset "UTF-8";
+.boite{
+	background: #fff;
+width: 500px;
+margin: 65px auto;
+display: -webkit-box;
+display: flex;
+-webkit-box-orient: vertical;
+-webkit-box-direction: normal;
+flex-direction: column;
+border-radius: 4px;
+box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
+}
+body{
+	background-color:#008080;
+font-family: 'Rubik', sans-serif;
+}
+h1{
+	padding: 35px 35px 0 35px;
+font-weight: 300;
+}
+form{
+	margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+.formulaire{
+	padding: 35px;
+	text-align: center;
+}
+.input{
+	padding: 12px 5px;
+}
+input{
+	font-size: 16px;
+display: block;
+font-family: 'Rubik', sans-serif;
+width: 100%;
+padding: 10px 1px;
+border: 0;
+  border-bottom-color: currentcolor;
+  border-bottom-style: none;
+  border-bottom-width: 0px;
+border-bottom: 1px solid #747474;
+outline: none;
+-webkit-transition: all .2s;
+transition: all .2s;
+}
