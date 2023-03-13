@@ -64,6 +64,28 @@ public class UserDaoImplementation implements UserDao{
 	}
 	
 	@Override
+	public User getUser(String username) throws Exception {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		
+		try {
+			connection = daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT uuid, personnalBest FROM db.user WHERE username=?;");
+			preparedStatement.setString(1, username);
+			result = preparedStatement.executeQuery();
+			if(result.next()) {
+				return new User(result.getString("uuid"), username, result.getInt("personnalBest"));
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		throw new Exception("Unknown user : " + username);
+		
+	}
+	
+	@Override
 	public List<User> getAllUsers() {
 		List<User> users = new ArrayList<User>();
 		Connection connection = null;

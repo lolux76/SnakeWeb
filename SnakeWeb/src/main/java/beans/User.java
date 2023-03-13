@@ -1,5 +1,7 @@
 package beans;
 
+import org.json.JSONStringer;
+
 public class User {
 	private String uuid;
 	private String username;
@@ -11,6 +13,23 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.personnalBest = personnalBest;
+	}
+	
+	public User(String uuid, String username, int personnalBest) {
+		this.uuid = uuid;
+		this.username = username;
+		this.personnalBest = personnalBest;
+		this.password = "";
+	}
+	
+	public String toJson() {
+		JSONStringer json = new JSONStringer();
+		json.object(); //nouvel objet JSON
+		json.key("uuid").value(uuid);
+		json.key("username").value(username);
+		json.key("personnalBest").value(personnalBest);
+		json.endObject(); //fin de l'objet JSON
+		return json.toString();
 	}
 	
 	public String toString() {
