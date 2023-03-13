@@ -27,7 +27,7 @@ public class Accueil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		 request.getRequestDispatcher("/SignIn.jsp").forward(request,response);
+		 request.getRequestDispatcher("/Accueil.jsp").forward(request,response);
 	}
 
 	/**

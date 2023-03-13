@@ -41,16 +41,23 @@ public class Index extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String nom,mdp,command;
+		/*---Recupération paramètre du Form---*/
 		nom=request.getParameter("nom");
 		mdp=request.getParameter("mdp");
 		command=request.getParameter("command");
+		
+		/*---Recuperation de la db avec DAO---*/
 		DaoFactory daoFactory = DaoFactory.getInstance();
 		daoFactory.DataTest().generateData();
 		User user;
+		
+		
 		switch(command) {
 		case "Register":
 			try {
 				user=new User(UUID.randomUUID().toString(),nom,mdp, 150);
+				
+				/*---Création dans la db d'un nouveau user---*/
 				daoFactory.getUserDao().add(user);
 			} catch (Exception e) {
 				response.getWriter().append(e.getMessage()).append("\n");
@@ -58,9 +65,16 @@ public class Index extends HttpServlet {
 			break;
 		case "Login":
 			try {
+				/*---recuperation user dans db---*/
 				user = daoFactory.getUserDao().getUser(nom, mdp);
+				
+				/*---Verif mdp user---*/
 				if(daoFactory.getUserDao().isPasswordCorrect(user)) {
-					response.getWriter().append("MDP correct" ).append("\n");
+					/*--- redirection après verif mot de passe---*/
+					request.getSession().setAttribute("username",user.getUsername());
+					request.getSession().setAttribute("uuid",user.getUuid());
+					request.getSession().setAttribute("personnalBest",user.getPersonnalBest());
+					request.getRequestDispatcher("/Accueil.jsp").forward(request,response);
 				}
 				daoFactory.getUserDao().delete(user);
 			} catch (Exception e) {
