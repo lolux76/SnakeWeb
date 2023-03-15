@@ -51,5 +51,9 @@ public class DaoFactory {
 	public UserDao getUserDao() {
 		return new UserDaoImplementation(this);
 	}
+	
+	public GameDao getGameDao() {
+		return new GameDaoImplementation(this);
+	}
 
 }

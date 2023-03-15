@@ -1,5 +1,7 @@
 package beans;
 
+import java.util.UUID;
+
 import org.json.JSONStringer;
 
 public class User {
@@ -7,6 +9,13 @@ public class User {
 	private String username;
 	private String password;
 	private int personnalBest;
+	
+	public User(String username, String password) {
+		this.uuid = UUID.randomUUID().toString();
+		this.username = username;
+		this.password = password;
+		this.personnalBest = 0;
+	}
 	
 	public User(String uuid, String username, String password, int personnalBest) {
 		this.uuid = uuid;

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.User;
 import dao.DaoFactory;
 
 /**
@@ -59,7 +58,18 @@ public class User extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		response.setStatus(405);
+		response.getWriter().append("Method not allowed");
 	}
+	
+	/**
+	 * @see HttpServlet#doDelete(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.setStatus(405);
+		response.getWriter().append("Method not allowed");
+	}
+
 
 }

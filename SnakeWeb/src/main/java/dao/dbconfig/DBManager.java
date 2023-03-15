@@ -17,7 +17,7 @@ public class DBManager {
 			String sqlUserTable = "CREATE TABLE `db`.`user` (`id` INT NOT NULL AUTO_INCREMENT , `uuid` VARCHAR(254) NOT NULL , `username` VARCHAR(254) NULL , `password` VARCHAR(254) NULL , `personnalBest` INT NULL , PRIMARY KEY (`id`), UNIQUE (`uuid`), UNIQUE (`username`)) ENGINE = InnoDB; ";
 			createTables.executeUpdate(sqlUserTable);
 			
-			String sqlGameTable = "CREATE TABLE `db`.`games` (`id` INT NOT NULL AUTO_INCREMENT , `player_one_uuid` VARCHAR(254) NULL , `player_two_uuid` VARCHAR(254) NULL , `player_one_score` INT NOT NULL , `player_two_score` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+			String sqlGameTable = "CREATE TABLE `db`.`games` (`id` INT NOT NULL AUTO_INCREMENT , `uuid` VARCHAR(254) NOT NULL , `player_one_uuid` VARCHAR(254) NULL , `player_two_uuid` VARCHAR(254) NULL , `player_one_score` INT NOT NULL , `player_two_score` INT NOT NULL , PRIMARY KEY (`id`) , UNIQUE (`uuid`)) ENGINE = InnoDB;";
 			createTables.executeUpdate(sqlGameTable);
 			
 			String sqlForeignKeys = "ALTER TABLE `games` ADD CONSTRAINT `player_one_uuid` FOREIGN KEY (`player_one_uuid`) REFERENCES `user`(`uuid`) ON DELETE SET NULL ON UPDATE CASCADE; ALTER TABLE `games` ADD CONSTRAINT `player_two_uuid` FOREIGN KEY (`player_two_uuid`) REFERENCES `user`(`uuid`) ON DELETE SET NULL ON UPDATE CASCADE;";
