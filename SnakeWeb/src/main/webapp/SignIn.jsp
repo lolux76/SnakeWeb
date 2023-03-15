@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Sign In</title>
-<link rel="stylesheet" href="SignIn.css"/>
+<link rel="stylesheet" href="Styles/SignIn.css"/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:400,700">
 </head>
 <body>
@@ -17,9 +17,10 @@
 		<input name="nom" type="text" placeholder="NOM"/>
 		</div>
 		<div class="input">
-		<input name="mdp" type="password" placeholder="PASSWORD"/>
+		<input name="mdp" type="password" placeholder="MDP"/>
 		</div>
 		</div>
+		<p style="color:red;"><%= request.getSession().getAttribute("holder1")%></p>
 		<input name="command" value="Login" type="submit"/>
 	</form>
 </div>
@@ -34,6 +35,7 @@
 		<input name="mdp" type="password" placeholder="PASSWORD"/>
 		</div>
 		</div>
+		<p style="color:red;"><%= request.getSession().getAttribute("holder2")%></p>
 		<input name="command" value="Register" type="submit"/>
 	</form>
 </div>

@@ -1,3 +1,4 @@
+package Servlets;
 
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import beans.User;
 import dao.DaoFactory;
+import passwordCheck.PasswordChecking;
 
 /**
  * Servlet implementation class Index
@@ -32,6 +34,10 @@ public class Index extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.getSession().setAttribute("holder1", " ");
+		request.getSession().setAttribute("holder2", " ");
+		DaoFactory daoFactory = DaoFactory.getInstance();
+		daoFactory.DataTest().generateData();
 		request.getRequestDispatcher("/SignIn.jsp").forward(request,response);
 	}
 
@@ -55,10 +61,19 @@ public class Index extends HttpServlet {
 		switch(command) {
 		case "Register":
 			try {
-				user=new User(UUID.randomUUID().toString(),nom,mdp, 150);
-				
-				/*---Création dans la db d'un nouveau user---*/
-				daoFactory.getUserDao().add(user);
+				PasswordChecking checkMdp= new PasswordChecking();
+				if(checkMdp.check(mdp)) {
+					user=new User(UUID.randomUUID().toString(),nom,mdp, 150);
+					daoFactory.getUserDao().add(user);
+					request.getSession().setAttribute("username",user.getUsername());
+					request.getSession().setAttribute("uuid",user.getUuid());
+					request.getSession().setAttribute("personnalBest",user.getPersonnalBest());
+					response.sendRedirect("Accueil");
+				}
+				else {
+					request.getSession().setAttribute("holder2", "Le mot de passe doit contenir 8 caracteres dont 2 majuscules et 2 minuscules");
+					request.getRequestDispatcher("/SignIn.jsp").forward(request,response);
+				}
 			} catch (Exception e) {
 				response.getWriter().append(e.getMessage()).append("\n");
 			}
@@ -74,11 +89,13 @@ public class Index extends HttpServlet {
 					request.getSession().setAttribute("username",user.getUsername());
 					request.getSession().setAttribute("uuid",user.getUuid());
 					request.getSession().setAttribute("personnalBest",user.getPersonnalBest());
-					request.getRequestDispatcher("/Accueil.jsp").forward(request,response);
+					response.sendRedirect("Accueil");
 				}
-				daoFactory.getUserDao().delete(user);
+				/*daoFactory.getUserDao().delete(user);*/
 			} catch (Exception e) {
-				response.getWriter().append(e.getMessage()).append("\n");
+				request.getSession().setAttribute("holder1", "MDP Incorrect");
+				request.getRequestDispatcher("/SignIn.jsp").forward(request,response);
+				/*response.getWriter().append(e.getMessage()).append("\n");*/
 			}
 			break;
 		}

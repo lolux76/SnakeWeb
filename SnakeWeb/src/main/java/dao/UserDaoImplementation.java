@@ -89,6 +89,31 @@ public class UserDaoImplementation implements UserDao{
 		}
 		return users;
 	}
+	public List<User> getAllUsersByScore() {
+		List<User> users = new ArrayList<User>();
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet result = null;
+		
+		try {
+			connection = daoFactory.getConnection();
+			statement = connection.createStatement();
+			result = statement.executeQuery("SELECT uuid, username, personnalBest FROM db.user ORDER BY personnalBest DESC;");
+			
+			while(result.next()) {
+				String uuid = result.getString("uuid");
+				String username = result.getString("username");
+				int personnalBest = result.getInt("personnalBest");
+				
+				User user = new User(uuid, username, "", personnalBest);
+				users.add(user);
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		return users;
+	}
 	
 	@Override
 	public void delete(User user) {
